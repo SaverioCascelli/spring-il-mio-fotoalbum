@@ -14,6 +14,7 @@ public class FotoAlbum {
   @NotBlank
   private String title;
   @Lob
+  @Column(columnDefinition = "varchar(255) default 'no description available'")
   private String description;
   @NotBlank
   private String imgUrl;
@@ -22,8 +23,8 @@ public class FotoAlbum {
   @ManyToMany
   @JoinTable(
       name = "category_foto_album",
-      joinColumns = @JoinColumn(name="foto_album_id"),
-      inverseJoinColumns = @JoinColumn(name="category_id")
+      joinColumns = @JoinColumn(name = "foto_album_id"),
+      inverseJoinColumns = @JoinColumn(name = "category_id")
   )
   private Set<Category> categories;
   

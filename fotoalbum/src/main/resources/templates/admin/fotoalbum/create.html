@@ -1,10 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <th:block th:fragment="resources">
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}"/>
+        <link rel="stylesheet" th:href="@{/webjars/font-awesome/6.3.0/css/all.min.css}"/>
+        <script defer src="@{/webjars/bootstrap/5.2.3/js/bootstrap.bundle.min.js}"></script>
+    </th:block>
+    <title>Document</title>
 </head>
 <body>
-
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>create</h1>
+            <form th:object="${fotoAlbum}" th:action="@{/admin/fotoalbum/create}" method="post">
+                <div class="mb-3">
+                    <label for="title" class="form-label">title</label>
+                    <input type="text" class="form-control" th:field="*{title}" id="title" th:errorClass="is-invalid">
+                    <div>
+                        <ul>
+                            <li th:each="err:${#fields.errors('title')}" th:text="${err}"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">description</label>
+                    <input type="text" class="form-control" th:field="*{description}" id="description"
+                           th:errorClass="is-invalid">
+                    <div>
+                        <ul>
+                            <li th:each="err:${#fields.errors('description')}" th:text="${err}"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="imgUrl" class="form-label">img-url</label>
+                    <input type="text" class="form-control" th:field="*{imgUrl}" id="imgUrl" th:errorClass="is-invalid">
+                    <div>
+                        <ul>
+                            <li th:each="err:${#fields.errors('imgUrl')}" th:text="${err}"></li>
+                        </ul>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>
