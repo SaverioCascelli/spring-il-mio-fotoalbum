@@ -1,6 +1,7 @@
 package com.expreris.fotoalbum.service;
 
 import com.expreris.fotoalbum.model.FotoAlbum;
+import com.expreris.fotoalbum.repository.CategoryRepository;
 import com.expreris.fotoalbum.repository.FotoalbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,14 @@ public class FotoalbumService {
   }
   
   public void create(FotoAlbum fotoAlbum) {
-    fotoalbumRepository.save(fotoAlbum);
+    FotoAlbum toPersist = new FotoAlbum();
+    toPersist.setCategories(fotoAlbum.getCategories());
+    toPersist.setTitle(fotoAlbum.getTitle());
+    toPersist.setVisible(fotoAlbum.getVisible());
+    toPersist.setImgUrl(fotoAlbum.getImgUrl());
+    if (fotoAlbum.getDescription().length() != 0) {
+      toPersist.setDescription(fotoAlbum.getDescription());
+    } else toPersist.setDescription(null);
+    fotoalbumRepository.save(toPersist);
   }
 }

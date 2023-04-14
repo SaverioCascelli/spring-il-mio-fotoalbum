@@ -46,7 +46,30 @@
                         </ul>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <div>
+
+                    <div class="btn-group" role="group" aria-label="categories checkbox">
+                        <div th:each="category : ${categories}">
+                            <input type="checkbox" class="btn-check" th:id="|checkbox${category.id}|" autocomplete="off"
+                                   th:value="${category.id}" name="categories">
+                            <label class="btn btn-outline-primary" th:for="|checkbox${category.id}|"
+                                   th:text="${category.name}"></label>
+                        </div>
+                    </div>
+                    <div class="btn-group" role="group" aria-label="radio-visible">
+                        <input type="radio" class="btn-check" name="visible" id="visible" autocomplete="off"
+                               value="true" checked>
+                        <label class="btn btn-outline-primary" for="visible">visible</label>
+
+                        <input type="radio" class="btn-check" name="visible" id="not-visible" autocomplete="off"
+                               value="false">
+                        <label class="btn btn-outline-primary" for="not-visible">not visible</label>
+
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
             </form>
         </div>
     </div>

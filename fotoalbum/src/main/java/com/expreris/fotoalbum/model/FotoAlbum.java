@@ -79,4 +79,11 @@ public class FotoAlbum {
   public void setCategories(Set<Category> categories) {
     this.categories = categories;
   }
+  
+  @PrePersist
+  public void setDefaultValues() {
+    if (description == null) {
+      description = "Default description";
+    }
+  }
 }
