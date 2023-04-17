@@ -13,7 +13,7 @@ public class Category {
   private Integer id;
   @NotBlank
   private String name;
-  @ManyToMany(mappedBy = "categories")
+  @ManyToMany(mappedBy = "categories", cascade = CascadeType.DETACH)
   private List<FotoAlbum> fotos;
   
   public Category() {

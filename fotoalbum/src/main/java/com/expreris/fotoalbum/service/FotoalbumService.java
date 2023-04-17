@@ -22,7 +22,7 @@ public class FotoalbumService {
     return fotoalbumRepository.findById(id);
   }
   
-  public void create(FotoAlbum fotoAlbum) {
+  public boolean create(FotoAlbum fotoAlbum) {
     FotoAlbum toPersist = new FotoAlbum();
     toPersist.setCategories(fotoAlbum.getCategories());
     toPersist.setTitle(fotoAlbum.getTitle());
@@ -32,5 +32,32 @@ public class FotoalbumService {
       toPersist.setDescription(fotoAlbum.getDescription());
     } else toPersist.setDescription(null);
     fotoalbumRepository.save(toPersist);
+    return true;
+  }
+  
+  public boolean update(FotoAlbum fotoAlbum) {
+    if (fotoAlbum.getId() == null) {
+      return false;
+    }
+    FotoAlbum toPersist = new FotoAlbum();
+    toPersist.setId(fotoAlbum.getId());
+    toPersist.setCategories(fotoAlbum.getCategories());
+    toPersist.setTitle(fotoAlbum.getTitle());
+    toPersist.setVisible(fotoAlbum.getVisible());
+    toPersist.setImgUrl(fotoAlbum.getImgUrl());
+    if (fotoAlbum.getDescription().length() != 0) {
+      toPersist.setDescription(fotoAlbum.getDescription());
+    } else toPersist.setDescription(null);
+    fotoalbumRepository.save(toPersist);
+    return true;
+  }
+  
+  public boolean delete(Integer id) {
+    Optional<FotoAlbum> fotoAlbum = getById(id);
+    if (fotoAlbum.isEmpty()) {
+      return false;
+    }
+    fotoalbumRepository.delete(fotoAlbum.get());
+    return true;
   }
 }

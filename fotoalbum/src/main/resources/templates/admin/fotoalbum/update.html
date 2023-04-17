@@ -13,13 +13,70 @@
     <title>Document</title>
 </head>
 <body>
+
 <div class="container">
     <div class="row">
         <div class="col">
-            <h1>update</h1>
+            <h1>Edit</h1>
+            <form th:object="${fotoAlbum}" th:action="@{/admin/fotoalbum/edit}" method="post">
+                <div><input type="hidden" name="id" th:field="*{id}"></div>
+                <div class="mb-3">
+                    <label for="title" class="form-label">title</label>
+                    <input type="text" class="form-control" th:field="*{title}" id="title" th:errorClass="is-invalid">
+                    <div>
+                        <ul>
+                            <li th:each="err:${#fields.errors('title')}" th:text="${err}"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">description</label>
+                    <input type="text" class="form-control" th:field="*{description}" id="description"
+                           th:errorClass="is-invalid">
+                    <div>
+                        <ul>
+                            <li th:each="err:${#fields.errors('description')}" th:text="${err}"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="imgUrl" class="form-label">img-url</label>
+                    <input type="text" class="form-control" th:field="*{imgUrl}" id="imgUrl" th:errorClass="is-invalid">
+                    <div>
+                        <ul>
+                            <li th:each="err:${#fields.errors('imgUrl')}" th:text="${err}"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+
+                    <div class="btn-group" role="group" aria-label="categories checkbox">
+                        <div th:each="category : ${categories}" class="form-check">
+                            <input type="checkbox" class="btn-check" th:id="|checkbox${category.id}|" autocomplete="off"
+                                   th:value="${category.id}" name="categories"
+                                   th:checked="${#lists.size(fotoAlbum.categories) > 0 and fotoAlbum.categories.contains(category)}"
+                            >
+                            <label class="btn btn-outline-primary" th:for="|checkbox${category.id}|"
+                                   th:text="${category.name}"></label>
+                        </div>
+                    </div>
+                    <div class="btn-group" role="group" aria-label="radio-visible">
+                        <input type="radio" class="btn-check" name="visible" id="visible" autocomplete="off"
+                               value="true" th:checked="*{visible == true}">
+                        <label class="btn btn-outline-primary" for="visible">visible</label>
+
+                        <input type="radio" class="btn-check" name="visible" id="not-visible" autocomplete="off"
+                               value="false" th:checked="*{visible == false}">
+                        <label class="btn btn-outline-primary" for="not-visible">not visible</label>
+
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
-
 </body>
 </html>

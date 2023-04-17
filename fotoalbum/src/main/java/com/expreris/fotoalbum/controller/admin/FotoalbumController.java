@@ -36,9 +36,21 @@ public class FotoalbumController {
   @GetMapping("/edit/{id}")
   public String edit(@PathVariable("id") Integer id, Model model) {
     FotoAlbum fotoAlbum = fotoalbumService.getById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    model.addAttribute(("categories"), categoryService.getAll());
     model.addAttribute("fotoAlbum", fotoAlbum);
     return "/admin/fotoalbum/update";
   }
+  
+  @PostMapping("/edit")
+  public String editPost(@Valid @ModelAttribute("fotoAlbum") FotoAlbum fotoAlbum, BindingResult bindingResult, Model model) {
+    if (bindingResult.hasErrors()) {
+      model.addAttribute("categories", categoryService.getAll());
+      return "/admin/fotoalbum/update";
+    }
+    fotoalbumService.update(fotoAlbum);
+    return "redirect:/admin/fotoalbum";
+  }
+  
   
   @GetMapping("/{id}")
   public String show(@PathVariable("id") Integer id, Model model) {
@@ -64,4 +76,12 @@ public class FotoalbumController {
     fotoalbumService.create(fotoAlbum);
     return "redirect:/admin/fotoalbum";
   }
+  
+  @GetMapping("/delete/{id}")
+  public String delete(@PathVariable("id") Integer id) {
+    fotoalbumService.delete(id);
+    return "redirect:/admin/fotoalbum";
+  }
+  
+  
 }
